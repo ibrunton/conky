@@ -1,0 +1,52 @@
+double_buffer yes
+own_window yes
+own_window_transparent yes
+own_window_type override
+own_window_hints undecorate,sticky,skip_taskbar,skip_pager
+
+draw_borders no
+#border_margin 3
+
+draw_shades no
+
+gap_x 0
+gap_y 2
+alignment top_left
+
+update_interval 1
+
+default_color 8f8f8f
+color2 e0e0e0
+color3 4abcd4
+color4 cd5666
+own_window_colour 000000
+
+use_xft yes
+xftfont ohsnap.icons:pixelsize=11
+#use_xft no
+#font -*-ohsnap.icons-medium-r-normal-*-11-79-100-100-C-60-ISO8859-1
+
+uppercase no
+
+override_utf8_locale yes
+
+use_spacer none
+minimum_size 1680 0
+
+lua_load /home/ian/.config/conky/conky.lua
+
+# ${lua_parse conky_hc_tag_status}\
+
+TEXT
+${if_existing /home/ian/.local/share/conky-on}\
+${alignr}\
+CPU ${lua_parse cpu_colour}   \
+Mem $color2$mem$color ($color2$memperc%$color)   \
+root $color2${fs_used_perc /}%$color / home $color2${fs_used_perc /home}%$color   \
+Vol ${color2}${tail /home/ian/.local/share/volume 1}%${color}   \
+${lua_parse dropbox_status}   \
+Pac ${lua_parse hilight_from_file /home/ian/.local/share/pacman_count} / \
+AUR ${lua_parse hilight_from_file /home/ian/.local/share/aur_count}   \
+Wolf ${lua_parse hilight_from_file /home/ian/.local/share/mailcount_wolfshift}\
+ / Ian ${lua_parse hilight_from_file /home/ian/.local/share/mailcount_iandbrunton}   \
+$color2${time %a %d %b}$color / $color2${time %H}$color:$color2${time %M}  ${endif}
