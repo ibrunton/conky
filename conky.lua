@@ -1,4 +1,4 @@
-local io = { open = io.open, popen = io.popen }
+local io = { open = io.open, popen = io.popen, read = io.read }
 local string = { find = string.find, gmatch = string.gmatch, gsub = string.gsub }
 local table = { insert = table.insert, concat = table.concat }
 local tonumber = tonumber
@@ -8,21 +8,30 @@ function conky_hc_tag_status ()
 	local tagstring = f:read ()
 	f:close ()
 
-	string.gsub (tagstring, "\t", "_")
-	string.gsub (tagstring, "(\x3A)", "${color3}") -- occupied tag
-	string.gsub (tagstring, "\x23", "${color3}") -- focused tag
-	string.gsub (tagstring, "(\x21)", "${color4}") -- urgent tag
-	string.gsub (tagstring, "(\x2E)", "${color}") -- empty, unfocused tag, and others
-	string.gsub (tagstring, "([\x2D\x2B\x25])", "${color}")
+	tagstring = tagstring:gsub ("\t", "${color}   ")
+	tagstring = tagstring:gsub (":", "${color5}")
+	tagstring = tagstring:gsub ("#", "${color3}")
+	tagstring = tagstring:gsub ("!", "${color4}")
+	tagstring = tagstring:gsub ("%.", "")
 
-	
-	--tagstring = table.concat (tags, " ")
 	return tagstring
+end
 
+function conky_mpd_status ()
+	local mpdstat = conky_parse ("$mpd_status")
+	if (mpdstat == "Stopped") then
+		return "${color5}å${color} "
+	elseif (mpdstat == "Playing") then
+		return "${color5}æ${color} "
+	elseif (mpdstat == "Paused") then
+		return "${color5}ç${color} "
+	else
+		return "${color5}ê${color} "
+	end
 end
 
 function conky_cpu_colour ()
-	cpu = tonumber (conky_parse ("$cpu"))
+	local cpu = tonumber (conky_parse ("$cpu"))
 
 	if (cpu == nil) then
 		return "${color4}N${color}"

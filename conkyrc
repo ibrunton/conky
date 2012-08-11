@@ -19,6 +19,7 @@ default_color 8f8f8f
 color2 e0e0e0
 color3 4abcd4
 color4 cd5666
+color5 1789a1
 own_window_colour 000000
 
 use_xft yes
@@ -35,18 +36,19 @@ minimum_size 1680 0
 
 lua_load /home/ian/.config/conky/conky.lua
 
-# ${lua_parse conky_hc_tag_status}\
 
 TEXT
 ${if_existing /home/ian/.local/share/conky-on}\
+${lua_parse hc_tag_status}\
+${if_mpd_playing}|   ${lua_parse mpd_status}$mpd_artist - $mpd_title ($mpd_elapsed / $mpd_length)${endif}\
 ${alignr}\
-CPU ${lua_parse cpu_colour}   \
-Mem $color2$mem$color ($color2$memperc%$color)   \
-root $color2${fs_used_perc /}%$color / home $color2${fs_used_perc /home}%$color   \
-Vol ${color2}${tail /home/ian/.local/share/volume 1}%${color}   \
-${lua_parse dropbox_status}   \
+CPU ${lua_parse cpu_colour}    \
+Mem $color2$memperc%$color    \
+Root $color2${fs_used_perc /}%$color / Home $color2${fs_used_perc /home}%$color    \
+Vol ${color2}${tail /home/ian/.local/share/volume 1}%${color}    \
+${lua_parse dropbox_status}    \
 Pac ${lua_parse hilight_from_file /home/ian/.local/share/pacman_count} / \
-AUR ${lua_parse hilight_from_file /home/ian/.local/share/aur_count}   \
+AUR ${lua_parse hilight_from_file /home/ian/.local/share/aur_count}    \
 Wolf ${lua_parse hilight_from_file /home/ian/.local/share/mailcount_wolfshift}\
- / Ian ${lua_parse hilight_from_file /home/ian/.local/share/mailcount_iandbrunton}   \
-$color2${time %a %d %b}$color / $color2${time %H}$color:$color2${time %M}  ${endif}
+ / Ian ${lua_parse hilight_from_file /home/ian/.local/share/mailcount_iandbrunton}    \
+|    $color2${execi 300 hebdate}$color * $color2${time %a %d %b}$color / $color3${time %H}$color:$color3${time %M}  ${endif}
