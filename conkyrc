@@ -40,6 +40,9 @@ lua_load /home/ian/.config/conky/conky.lua
 TEXT
 ${if_existing /home/ian/.local/share/conky-on}\
 ${lua_parse hc_tag_status}\
+${if_existing /home/ian/.local/share/hcwin-on}\
+|   ${tail /home/ian/.local/share/hcwin 1}\
+${endif}\
 ${if_mpd_playing}|   ${lua_parse mpd_status}$mpd_artist - $mpd_title ($mpd_elapsed / $mpd_length)${endif}\
 ${alignr}\
 CPU ${lua_parse cpu_colour}    \
