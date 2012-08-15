@@ -50,7 +50,7 @@ function conky_hilight_from_file (arg)
 	f:close ()
 	
 	if (value == nil) then
-		return "${color4}N${color}"
+		return "${color4}0${color}"
 	end
 
 	if (value < 0) then
@@ -62,6 +62,7 @@ function conky_hilight_from_file (arg)
 	end
 end
 
+-- depends on the ohsnap.icons font
 function conky_dropbox_status ()
 	local f = io.popen ("dropbox status")
 	local status = f:read ()
