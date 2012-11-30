@@ -9,20 +9,21 @@ function conky_hc_tag_status ()
 	f:close ()
 
 	tagstring = tagstring:gsub ("\t", "${color}   ")
-	tagstring = tagstring:gsub (":", "${color5}")
-	tagstring = tagstring:gsub ("#", "${color3}")
-	tagstring = tagstring:gsub ("!", "${color4}")
+	tagstring = tagstring:gsub (":", "${color5}") --occupied/blue
+	tagstring = tagstring:gsub ("#", "${color3}") --focused/bright blue
+	tagstring = tagstring:gsub ("!", "${color4}") --urgent/red
 	tagstring = tagstring:gsub ("%.", "")
 
 	return tagstring
 end
 
+-- depends on the ohsnap.icons font
 function conky_mpd_status ()
 	local mpdstat = conky_parse ("$mpd_status")
 	if (mpdstat == "Stopped") then
 		return "${color5}å${color} "
 	elseif (mpdstat == "Playing") then
-		return "${color5}æ${color} "
+		return "${color5}ê${color} "
 	elseif (mpdstat == "Paused") then
 		return "${color5}ç${color} "
 	else
@@ -41,6 +42,24 @@ function conky_cpu_colour ()
 		return "${color4}" .. cpu .. "%${color}"
 	else
 		return "${color2}" .. cpu .. "%${color}"
+	end
+end
+
+function conky_parse_volume ()
+	local f = io.open ("/home/ian/.local/share/volume")
+	local value = tonumber (f:read ("*n"))
+	f:close ()
+
+	if (value == nil) then
+		return "${color4}NA${color}"
+	end
+
+	if (value == 0) then
+		return "ë ${color2}0%${color}"
+	elseif (value < 50) then
+		return "ì ${color2}" .. value .. "%${color}"
+	else
+		return "í ${color2}" .. value .. "%${color}"
 	end
 end
 
@@ -76,3 +95,4 @@ function conky_dropbox_status ()
 		return "Ñ"
 	end
 end
+
