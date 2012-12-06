@@ -8,6 +8,7 @@ function conky_hc_tag_status ()
 	local tagstring = f:read ()
 	f:close ()
 
+	tagstring = tagstring:gsub ("%d", "å")
 	tagstring = tagstring:gsub ("\t", "${color}   ")
 	tagstring = tagstring:gsub (":", "${color5}") --occupied/blue
 	tagstring = tagstring:gsub ("#", "${color3}") --focused/bright blue

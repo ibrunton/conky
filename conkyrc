@@ -22,7 +22,7 @@ color3 4abcd4
 color4 cd5666
 color5 1789a1
 #color5 baba00
-own_window_colour 000000
+own_window_colour 222222
 
 use_xft yes
 xftfont ohsnap.icons:pixelsize=11
@@ -44,7 +44,9 @@ TEXT
 ${if_existing /home/ian/.local/share/conky-on}\
 ${lua_parse hc_tag_status}\
 ${if_mpd_playing}|   ${lua_parse mpd_status}$mpd_artist - $mpd_title ($mpd_elapsed / $mpd_length)${endif}\
+${if_existing /home/ian/.local/share/conky-slogan-on}\
 ${alignc} ${font tamsynmod.icons:pixelsize=11}${color3}☩$color ΚΥΡΙΕ ΙΗΣΟΥ ΧΡΙΣΤΕ ΥΙΕ ΤΟΥ ΘΕΟΥ ΕΛΕΗΣΟΝ ΜΕ ΤΟΝ ΑΜΑΡΤΩΛΟΝ ${color3}☩$color$font\
+${endif}\
 ${alignr}\
 ${if_existing /home/ian/.local/share/conky-stats-on}\
 CPU ${lua_parse cpu_colour}    \
