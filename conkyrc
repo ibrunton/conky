@@ -1,11 +1,10 @@
 double_buffer yes
 own_window yes
-own_window_transparent no
+own_window_transparent yes
 own_window_type override
 own_window_hints undecorate,sticky,skip_taskbar,skip_pager
 
 draw_borders no
-#border_margin 3
 
 draw_shades no
 
@@ -18,19 +17,18 @@ update_interval 1
 default_color 8f8f8f
 color2 e0e0e0
 #color3 fff700
-color3 4abcd4
+#color3 4abcd4
+color3 09ba55
+color5 09802c
 #color3 f0ac00
 color4 cd5666
-color5 1789a1
+#color5 1789a1
 #color5 c4bd0c
 #color5 baba00
 own_window_colour 222222
 
 use_xft yes
 xftfont ohsnap.icons:pixelsize=11
-#xftfont tamsynmod.icons:pixelsize=11
-#use_xft no
-#font -*-ohsnap.icons-medium-r-normal-*-11-79-100-100-C-60-ISO8859-1
 
 uppercase no
 
@@ -43,20 +41,11 @@ lua_load /home/ian/.config/conky/conky.lua
 
 TEXT
 ${if_existing /home/ian/.local/share/conky-on}\
+${alignc}\
 ${lua_parse hc_tag_status}\
-${if_mpd_playing}|   ${lua_parse mpd_status}$mpd_artist - $mpd_title ($mpd_elapsed / $mpd_length)${endif}\
-${alignr}\
-${if_existing /home/ian/.local/share/conky-stats-on}\
-CPU ${lua_parse cpu_colour}    \
-Mem $color2$memperc%$color    \
-Root $color2${fs_used_perc /}%$color / Home $color2${fs_used_perc /home}%$color    \
-${lua_parse parse_volume}\
-${if_mpd_playing} / ${color2}${mpd_vol}%$color\
-${endif}   \
-${endif}\
-${lua_parse dropbox_status}    \
-Pac ${lua_parse hilight_from_file /home/ian/.local/share/pacman_count} / \
-AUR ${lua_parse hilight_from_file /home/ian/.local/share/aur_count}    \
-Wolf ${lua_parse hilight_from_file /home/ian/.local/share/mailcount_wolfshift}\
- / Ian ${lua_parse hilight_from_file /home/ian/.local/share/mailcount_iandbrunton}    \
-|    $color2${time %a %d %b}$color * $color2${time %H}$color:$color2${time %M}       ${endif}
+|    $color2${time %a %d %b}$color * $color2${time %H}$color:$color2${time %M}    \
+|    ${lua_parse dropbox_status}    \
+º ${lua_parse hilight_from_file /home/ian/.local/share/pacman_count} / \
+${lua_parse hilight_from_file /home/ian/.local/share/aur_count}    \
+Ê Wolf ${lua_parse hilight_from_file /home/ian/.local/share/mailcount_wolfshift}\
+ / Ian ${lua_parse hilight_from_file /home/ian/.local/share/mailcount_iandbrunton}${endif}
