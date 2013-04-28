@@ -1,0 +1,73 @@
+use_xft yes
+xftfont monospace:size=9
+xftalpha 0.1
+override_utf8_locale yes
+#text_buffer_size 640
+background no
+update_interval 2.0
+total_run_times 0
+
+own_window yes
+own_window_type override
+own_window_transparent yes
+imlib_cache_size 0
+double_buffer yes
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders yes
+out_to_ncurses no
+out_to_console no
+alignment bottom_right
+minimum_size 220 0
+maximum_width 220
+gap_x 10
+gap_y 10
+short_units no
+pad_percents 0
+border_inner_margin 4
+top_name_width 15
+no_buffers yes
+uppercase no
+cpu_avg_samples 2
+use_spacer right
+
+color0 09ba55
+color1 09802c
+
+lua_load /home/ian/.config/conky/draw_bg.lua
+lua_draw_hook_pre draw_bg
+
+lua_load /home/ian/.config/conky/bargraph_small.lua
+lua_draw_hook_post main_bars
+
+TEXT
+${color0}
+${alignc}$sysname $kernel
+${alignc}$nodename
+${alignc}uptime $uptime
+${color1}$hr
+${voffset 2}${font StyleBats:size9}${color1}A${font}${offset 20}${execi 10000 cat /proc/cpuinfo | grep 'model name' | sed -e 's/model name.*: //'| uniq | cut -c 1-25}
+${voffset 2}${color1}CPU ${color0}${cpu cpu0}%
+${color0}${voffset 2}Frequency: ${alignr}${freq_g cpu0}GHz
+${voffset -3}${color1}$hr
+${voffset 2}${font StyleBats:size=9}${color1}l${font}${color0} RAM: ${offset 20}${color0}${alignc}$mem/ $memmax${alignr} $memperc%
+${voffset 15}${font StyleBats:size=9}${color1}l${font}${color0} SWAP: ${offset 20}${color0}${alignc}$swap/ $swapmax${alignr} $swapperc%
+${voffset 16}${color1}$processes processes ${alignr}   PID    CPU
+${color0}${top name 1} ${alignr} ${top pid 1} ${top cpu 1}
+${color0}${top name 2} ${alignr} ${top pid 2} ${top cpu 2}
+${color0}${top name 3} ${alignr} ${top pid 3} ${top cpu 3}
+${color0}${top name 4} ${alignr} ${top pid 4} ${top cpu 4}
+${color0}${top name 5} ${alignr} ${top pid 5} ${top cpu 5}
+${color1}$hr
+${color1}RAM Usage: ${alignr} ${color1}%
+${color0}${top_mem name 1}${alignr}${top_mem mem 1}
+${color0}${top_mem name 2}${alignr}${top_mem mem 2}
+${color0}${top_mem name 3}${alignr}${top_mem mem 3}
+${color0}${top_mem name 4}${alignr}${top_mem mem 4}
+${color0}${top_mem name 5}${alignr}${top_mem mem 5}
+${color1}$hr
+${color1}Disk Usage:
+${color1}Root${alignr}${color0}${fs_used /}${color1} / ${fs_size /}
+${voffset 14}${color1}Home${alignr}${color0}${fs_used /home}${color1} / ${fs_size /home}
+

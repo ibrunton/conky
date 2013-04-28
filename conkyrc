@@ -43,7 +43,7 @@ TEXT
 ${if_existing /home/ian/.local/share/conky-on}\
 ${alignc}\
 ${lua_parse hc_tag_status}\
-|    $color2${time %a %d %b}$color * $color2${time %H}$color:$color2${time %M}    \
+|    $color2${time %a %d %b}$color * $color2${time %H}$color:$color2${time %M}$color    \
 |    ${lua_parse dropbox_status}    \
 º ${lua_parse hilight_from_file /home/ian/.local/share/pacman_count} / \
 ${lua_parse hilight_from_file /home/ian/.local/share/aur_count}    \
